@@ -1,11 +1,14 @@
 name: Hello World
-
 on: 
   push
-
 jobs:
   hello-job:
     runs-on: ubuntu-latest
     steps:
     - name: Echo text
       run: echo "Hello, world!"
+    - name: Cache NPM dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }} 
